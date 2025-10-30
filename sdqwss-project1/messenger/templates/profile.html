@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Профиль | {{ user.username }}{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Профиль пользователя</h2>
+    <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email|default:"Не указан" }}</p>
+    <p><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y H:i" }}</p>
+    <p><strong>Чатов:</strong> {{ user.chat_rooms.count }}</p>
+
+    <a href="{% url 'room_list' %}" class="btn" style="margin-top: 1rem;">
+        Назад к чатам
+    </a>
+</div>
+{% endblock %}

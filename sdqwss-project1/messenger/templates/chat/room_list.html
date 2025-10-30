@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Мои чаты{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Мои чаты</h2>
+    {% if rooms %}
+        <ul style="display: grid; gap: 12px;">
+            {% for room in rooms %}
+                <li style="padding: 0; border: none;">
+                    <a href="{% url 'room' room.id %}" style="
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 16px;
+                        background: #f8f9fa;
+                        border-radius: 12px;
+                        text-decoration: none;
+                        color: var(--text-primary);
+                        font-weight: 600;
+                        transition: var(--transition);
+                        box-shadow: var(--shadow-sm);
+                    ">
+                        <span>
+                            {{ room.name|default:"Личный чат" }}
+                            {% if room.is_private and room.members.count == 2 %}
+                                <span style="font-size: 13px; color: var(--text-secondary); font-weight: normal; margin-left: 8px;">(личный)</span>
+                            {% endif %}
+                        </span>
+                        <i data-lucide="arrow-right" style="width: 18px; height: 18px; color: var(--accent);"></i>
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>У вас пока нет чатов. Создайте первый!</p>
+    {% endif %}
+
+    <div style="margin-top: 28px; display: flex; gap: 16px; flex-wrap: wrap;">
+        <a href="{% url 'create_group_room' %}" class="btn btn-success">
+            Создать групповой чат
+        </a>
+        <a href="{% url 'user_list' %}" class="btn btn-purple">
+            Написать коллеге
+        </a>
+    </div>
+</div>
+{% endblock %}

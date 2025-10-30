@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Главная | Корпоративный мессенджер{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Добро пожаловать в корпоративный мессенджер!</h2>
+    <p>Быстро, безопасно и удобно общайтесь с коллегами в реальном времени — прямо из браузера.</p>
+
+    <div style="background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 28px 0; border-left: 4px solid var(--accent);">
+        <h3>Возможности:</h3>
+        <ul style="text-align: left; margin-top: 16px; padding-left: 24px; gap: 10px; display: grid;">
+            <li>Личные и групповые чаты</li>
+            <li>Мгновенная отправка сообщений</li>
+            <li>История переписки</li>
+            <li>Создание и удаление чатов</li>
+            <li>Автоматическое обновление каждые 5 секунд</li>
+            <li>Защита данных и приватность</li>
+        </ul>
+    </div>
+
+    {% if user.is_authenticated %}
+        <p>Вы уже вошли в систему.</p>
+        <a href="{% url 'room_list' %}" class="btn">Перейти к чатам</a>
+    {% else %}
+        <p>Начните работу уже сегодня — создайте аккаунт или войдите в существующий.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px;">
+            <a href="{% url 'login' %}" class="btn">Войти</a>
+            <a href="{% url 'register' %}" class="btn btn-success">Регистрация</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
